@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, Check, Download, ImagePlus, Lock, LogOut, Pencil, Plus, RotateCcw, Save, Search, Trash2, Upload, X } from 'lucide-react'
+import { supabase } from '../lib/supabase.js'
+import { uploadImage } from '../services/catalogueService.js'
 
-const OWNER_PASSCODE = 'EON-2026'
 const OWNER_SESSION_KEY = 'eonmarket-admin-owner'
 
 const emptyForm = {
@@ -98,14 +99,20 @@ function compressImageFile(file, maxSize = 1000, quality = 0.78) {
 export default function AdminPage({
   products,
   onProductsChange,
+  onProductSave = null,
+  onProductDelete = null,
   onResetProducts = () => [],
   saveError = '',
   heroSlides = ['', ''],
   onHeroSlidesChange = () => false,
   heroSaveError = '',
+  isLiveMode = false,
+  dataStatus = '',
+  onReloadLiveData = () => {},
 }) {
   const [isOwner, setIsOwner] = useState(() => sessionStorage.getItem(OWNER_SESSION_KEY) === 'true')
-  const [passcode, setPasscode] = useState('')
+  const [adminEmail, setAdminEmail] = useState('')
+  const [adminPassword, setAdminPassword] = useState('')
   const [accessError, setAccessError] = useState('')
   const [form, setForm] = useState(emptyForm)
   const [editingId, setEditingId] = useState(null)
@@ -115,20 +122,30 @@ export default function AdminPage({
   const [catalogueJson, setCatalogueJson] = useState('')
   const [dataMessage, setDataMessage] = useState('')
 
-  const handleOwnerLogin = (event) => {
+  const handleOwnerLogin = async (event) => {
     event.preventDefault()
-    if (passcode.trim() !== OWNER_PASSCODE) {
-      setAccessError('Code incorrect.')
-      return
+
+    if (isLiveMode) {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: adminEmail.trim(),
+        password: adminPassword,
+      })
+
+      if (error) {
+        setAccessError('Email ou mot de passe incorrect.')
+        return
+      }
     }
 
     sessionStorage.setItem(OWNER_SESSION_KEY, 'true')
     setIsOwner(true)
-    setPasscode('')
+    setAdminEmail('')
+    setAdminPassword('')
     setAccessError('')
   }
 
-  const handleOwnerLogout = () => {
+  const handleOwnerLogout = async () => {
+    if (isLiveMode) await supabase.auth.signOut()
     sessionStorage.removeItem(OWNER_SESSION_KEY)
     setIsOwner(false)
     resetForm()
@@ -156,7 +173,8 @@ export default function AdminPage({
     try {
       setFormMessage('Compression image en cours...')
       const compressedImage = await compressImageFile(file)
-      updateField(field, compressedImage)
+      const imageValue = isLiveMode ? await uploadImage(compressedImage, 'products') : compressedImage
+      updateField(field, imageValue)
       setFormMessage('Image ajoutee. Cliquez sur Sauvegarder.')
     } catch {
       setFormMessage("Impossible de lire cette image. Essayez une image JPG ou PNG.")
@@ -172,9 +190,10 @@ export default function AdminPage({
     try {
       setHeroMessage('Compression image hero en cours...')
       const compressedImage = await compressImageFile(file, 1600, 0.82)
+      const imageValue = isLiveMode ? await uploadImage(compressedImage, 'hero') : compressedImage
       const nextSlides = [...heroSlides]
-      nextSlides[index] = compressedImage
-      const saved = onHeroSlidesChange(nextSlides)
+      nextSlides[index] = imageValue
+      const saved = await onHeroSlidesChange(nextSlides, index)
       setHeroMessage(saved === false ? 'Image hero non sauvegardee. Essayez une image plus legere.' : 'Image hero sauvegardee.')
     } catch {
       setHeroMessage("Impossible de lire cette image hero. Essayez une image JPG ou PNG.")
@@ -183,17 +202,17 @@ export default function AdminPage({
     }
   }
 
-  const updateHeroUrl = (index, value) => {
+  const updateHeroUrl = async (index, value) => {
     const nextSlides = [...heroSlides]
     nextSlides[index] = value
-    const saved = onHeroSlidesChange(nextSlides)
+    const saved = await onHeroSlidesChange(nextSlides, index)
     setHeroMessage(saved === false ? 'Image hero non sauvegardee.' : 'Hero mis a jour.')
   }
 
-  const clearHeroImage = (index) => {
+  const clearHeroImage = async (index) => {
     const nextSlides = [...heroSlides]
     nextSlides[index] = ''
-    const saved = onHeroSlidesChange(nextSlides)
+    const saved = await onHeroSlidesChange(nextSlides, index)
     setHeroMessage(saved === false ? 'Image hero non sauvegardee.' : 'Image hero supprimee.')
   }
 
@@ -203,14 +222,16 @@ export default function AdminPage({
     setFormMessage('')
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const id = editingId || `product-${Date.now()}`
     const nextProduct = formToProduct(form, id)
     const nextProducts = editingId
       ? products.map((product) => (product.id === editingId ? nextProduct : product))
       : [nextProduct, ...products]
-    const saved = onProductsChange(nextProducts)
+    const saved = onProductSave
+      ? await onProductSave(nextProduct, nextProducts)
+      : await onProductsChange(nextProducts)
 
     if (saved === false) {
       setFormMessage("Produit non sauvegarde. Reduisez l'image ou supprimez une image lourde.")
@@ -228,13 +249,23 @@ export default function AdminPage({
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const deleteProduct = (id) => {
-    onProductsChange(products.filter((product) => product.id !== id))
+  const deleteProduct = async (id) => {
+    const nextProducts = products.filter((product) => product.id !== id)
+    const saved = onProductDelete ? await onProductDelete(id, nextProducts) : await onProductsChange(nextProducts)
+    if (saved === false) return
     if (editingId === id) resetForm()
   }
 
-  const toggleProduct = (id, field) => {
-    onProductsChange(products.map((product) => (product.id === id ? { ...product, [field]: !product[field] } : product)))
+  const toggleProduct = async (id, field) => {
+    const nextProducts = products.map((product) => {
+      if (product.id !== id) return product
+      const nextProduct = { ...product, [field]: !product[field] }
+      if (field === 'active') nextProduct.availability = nextProduct.active && nextProduct.badge !== 'Out of stock'
+      return nextProduct
+    })
+    const nextProduct = nextProducts.find((product) => product.id === id)
+    if (onProductSave) await onProductSave(nextProduct, nextProducts)
+    else await onProductsChange(nextProducts)
   }
 
   const exportProducts = () => {
@@ -242,7 +273,7 @@ export default function AdminPage({
     setDataMessage('Catalogue exporte. Gardez ce JSON pour le deploy ou envoyez-le a Codex pour mettre a jour data/products.js.')
   }
 
-  const importProducts = () => {
+  const importProducts = async () => {
     try {
       const parsed = JSON.parse(catalogueJson)
       if (!Array.isArray(parsed)) {
@@ -250,11 +281,20 @@ export default function AdminPage({
         return
       }
 
-      const saved = onProductsChange(parsed)
+      const saved = await onProductsChange(parsed)
       setDataMessage(saved === false ? 'Import non sauvegarde.' : 'Catalogue importe et sauvegarde dans ce navigateur.')
     } catch {
       setDataMessage('JSON invalide. Verifiez le contenu avant importer.')
     }
+  }
+
+  const publishVisibleCatalogue = async () => {
+    const saved = await onProductsChange(products)
+    setDataMessage(
+      saved === false
+        ? 'Publication live non sauvegardee.'
+        : 'Catalogue visible publie dans Supabase. Les clients verront ces produits.'
+    )
   }
 
   const resetLocalProducts = () => {
@@ -278,22 +318,23 @@ export default function AdminPage({
             </span>
             <h1 className="text-2xl font-black text-slate-950">Accès propriétaire</h1>
             <p className="text-sm font-semibold leading-6 text-slate-500">
-              Cette page admin est réservée au propriétaire Eonmarket.
+              {isLiveMode
+                ? 'Connectez-vous avec votre compte admin Supabase.'
+                : 'Mode local: lancez le script Supabase pour activer le login live.'}
             </p>
           </div>
 
           <form onSubmit={handleOwnerLogin} className="mt-6 grid gap-3">
-            <label className="grid gap-1.5">
-              <span className="text-xs font-black uppercase tracking-wide text-slate-500">Code admin</span>
-              <input
-                type="password"
-                value={passcode}
-                onChange={(event) => setPasscode(event.target.value)}
-                className="h-12 rounded-2xl border border-slate-200 bg-white px-4 text-center text-lg font-black outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-                placeholder="••••••••"
-                autoFocus
-              />
-            </label>
+            {isLiveMode ? (
+              <>
+                <Field label="Email admin" type="email" value={adminEmail} onChange={setAdminEmail} required />
+                <Field label="Mot de passe" type="password" value={adminPassword} onChange={setAdminPassword} required />
+              </>
+            ) : (
+              <div className="rounded-2xl bg-amber-50 px-4 py-3 text-sm font-black text-amber-800">
+                Supabase pas encore configure. Cliquez Entrer pour utiliser le mode local temporaire.
+              </div>
+            )}
 
             {accessError && <div className="rounded-2xl bg-rose-50 px-4 py-3 text-sm font-black text-rose-700">{accessError}</div>}
 
@@ -320,6 +361,9 @@ export default function AdminPage({
             </Link>
             <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-950">Admin Eonmarket</h1>
             <p className="mt-1 text-sm font-semibold text-slate-500">Catalogue frontend avec sauvegarde localStorage.</p>
+            <p className={`mt-2 inline-flex rounded-full px-3 py-1 text-xs font-black ${isLiveMode ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-800'}`}>
+              {dataStatus}
+            </p>
           </div>
           <div className="rounded-3xl bg-blue-50 px-5 py-3 text-sm font-black text-blue-800">
             {products.length} produits
@@ -331,6 +375,14 @@ export default function AdminPage({
           >
             <LogOut size={16} />
             Verrouiller
+          </button>
+          <button
+            type="button"
+            onClick={onReloadLiveData}
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-4 text-sm font-black text-slate-700 hover:bg-slate-50"
+          >
+            <RotateCcw size={16} />
+            Recharger live
           </button>
         </div>
       </header>
@@ -435,13 +487,25 @@ export default function AdminPage({
             <div className="flex flex-col gap-1">
               <h2 className="text-xl font-black text-slate-950">Synchronisation catalogue</h2>
               <p className="text-sm font-semibold leading-6 text-slate-500">
-                Les changements admin sont dans localStorage. Exportez le JSON pour le deploy, ou effacez le cache si la preview montre un ancien catalogue.
+                {isLiveMode
+                  ? 'Les changements admin sont sauvegardes dans Supabase et visibles pour tous les clients.'
+                  : 'Les changements admin sont dans localStorage. Activez Supabase pour sauvegarder le catalogue en live.'}
               </p>
             </div>
 
             {dataMessage && <div className="mt-4 rounded-2xl bg-blue-50 px-4 py-3 text-sm font-black text-blue-700">{dataMessage}</div>}
 
-            <div className="mt-4 grid gap-2 sm:grid-cols-3">
+            <div className="mt-4 grid gap-2 sm:grid-cols-4">
+              {isLiveMode && (
+                <button
+                  type="button"
+                  onClick={publishVisibleCatalogue}
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-emerald-600 px-4 text-sm font-black text-white hover:bg-emerald-700"
+                >
+                  <Check size={16} />
+                  Publier live
+                </button>
+              )}
               <button
                 type="button"
                 onClick={exportProducts}
