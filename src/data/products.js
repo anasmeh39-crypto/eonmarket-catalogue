@@ -32,243 +32,419 @@ export const badgeLabels = {
 
 export const demoProducts = [
   {
-    id: 'demo-1',
-    imageUrl: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'ساعة ذكية Active X2', fr: 'Smart Watch Active X2' },
-    description: {
-      ar: 'ساعة ذكية خفيفة للاستعمال اليومي، فيها تتبع الرياضة والنوم والتنبيهات.',
-      fr: 'Montre connectee simple pour suivre le sport, le sommeil et les notifications.',
+    "id": "product-1778247026688",
+    "imageUrl": "/products/product-1778247026688-main.jpg",
+    "secondImageUrl": "/products/product-1778247026688-usage.jpg",
+    "name": {
+      "ar": "جهاز المساج العضلي المحمول",
+      "fr": "Pistolet de massage musculaire"
     },
-    benefits: {
-      ar: ['مكالمات Bluetooth', 'تتبع الرياضة والنوم', 'بطارية حتى 7 أيام'],
-      fr: ['Appels Bluetooth', 'Suivi sport et sommeil', 'Batterie jusqu a 7 jours'],
+    "description": {
+      "ar": "جهاز مساج عضلي عملي كيعاون على تخفيف التشنجات وآلام العضلات بعد يوم طويل أو بعد الرياضة. تصميم خفيف وسهل الحمل مع عدة رؤوس للتدليك تناسب مختلف مناطق الجسم.",
+      "fr": "Pistolet de massage musculaire conçu pour soulager les tensions et douleurs musculaires après le sport ou une longue journée. Léger, pratique et équipé de plusieurs embouts pour différentes zones du corps."
     },
-    category: 'Tech',
-    price: 349,
-    oldPrice: 499,
-    badge: 'Best Seller',
-    active: true,
-    featured: true,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "كيخفف الشد والتعب العضلي بسرعة",
+        "رؤوس متعددة لمختلف مناطق الجسم",
+        "خفيف وسهل الاستعمال فالدار أو الجيم"
+      ],
+      "fr": [
+        "Soulage rapidement les tensions musculaires",
+        "Plusieurs embouts pour différentes zones",
+        "Léger et pratique à utiliser partout"
+      ]
+    },
+    "price": 269,
+    "oldPrice": 319,
+    "category": "Tech",
+    "badge": "Best Seller",
+    "active": true,
+    "featured": true,
+    "availability": true
   },
   {
-    id: 'demo-2',
-    imageUrl: 'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'سماعات لاسلكية Pro', fr: 'Wireless Earbuds Pro' },
-    description: {
-      ar: 'سماعات صغيرة بصوت واضح وعلبة شحن مناسبة للخروج والخدمة.',
-      fr: 'Ecouteurs sans fil compacts avec son clair et boitier rechargeable.',
+    "id": "demo-1",
+    "imageUrl": "/products/demo-1-main.png",
+    "secondImageUrl": "/products/demo-1-usage.jpg",
+    "name": {
+      "ar": "طقم منظمات حقيبة السفر – 7 قطع",
+      "fr": "Set d’organisateurs de valise – 7 pièces"
     },
-    benefits: {
-      ar: ['صوت نقي', 'ميكروفون للمكالمات', 'علبة شحن صغيرة'],
-      fr: ['Son clair', 'Micro pour appels', 'Boitier compact'],
+    "description": {
+      "ar": "طقم عملي مكون من 7 قطع لتنظيم الملابس والأغراض داخل حقيبة السفر بطريقة مرتبة وسهلة. كيعاونك تستغل المساحة مزيان وتحافظ على أغراضك منظمة أثناء السفر.",
+      "fr": "Set pratique de 7 organisateurs pour ranger facilement les vêtements et accessoires dans votre valise. Idéal pour garder vos affaires bien organisées et gagner de l’espace pendant le voyage."
     },
-    category: 'Tech',
-    price: 229,
-    oldPrice: 299,
-    badge: 'Promo',
-    active: true,
-    featured: true,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "تنظيم سهل ومرتب داخل حقيبة السفر",
+        "كيساعدك تستغل المساحة بشكل أفضل",
+        "خفيف وسهل الحمل أثناء السفر"
+      ],
+      "fr": [
+        "Organisation simple et efficace de la valise",
+        "Permet de gagner plus d’espace",
+        "Léger et pratique pour les voyages"
+      ]
+    },
+    "price": 100,
+    "oldPrice": 169,
+    "category": "Organisation",
+    "badge": "Promo",
+    "active": true,
+    "featured": true,
+    "availability": true
   },
   {
-    id: 'demo-3',
-    imageUrl: 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'كاميرا مراقبة Mini WiFi', fr: 'Mini Security Camera WiFi' },
-    description: {
-      ar: 'كاميرا صغيرة للمراقبة في الدار أو المحل مع رؤية ليلية وتنبيه الحركة.',
-      fr: 'Camera compacte pour surveiller maison ou magasin avec vision nocturne.',
+    "id": "demo-2",
+    "imageUrl": "/products/demo-2-main.jpg",
+    "secondImageUrl": "/products/demo-2-usage.jpg",
+    "name": {
+      "ar": "جهاز قياس ضغط الدم الذكي",
+      "fr": "Tensiomètre intelligent digital"
     },
-    benefits: {
-      ar: ['رؤية ليلية', 'تنبيه الحركة', 'تطبيق الهاتف'],
-      fr: ['Vision nocturne', 'Detection mouvement', 'Application mobile'],
+    "description": {
+      "ar": "جهاز ذكي وسهل الاستعمال لقياس ضغط الدم ونبضات القلب بسرعة ودقة من المنزل. تصميم مريح وخفيف مع شاشة رقمية واضحة لقراءة النتائج بسهولة.",
+      "fr": "Tensiomètre digital intelligent conçu pour mesurer la tension artérielle et le rythme cardiaque rapidement et facilement à domicile. Écran digital clair avec lecture simple et précise."
     },
-    category: 'Tech',
-    price: 279,
-    oldPrice: '',
-    badge: 'New',
-    active: true,
-    featured: false,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "قياس سريع ودقيق لضغط الدم",
+        "شاشة رقمية واضحة وسهلة القراءة",
+        "خفيف وسهل الاستعمال في أي وقت"
+      ],
+      "fr": [
+        "Mesure rapide et précise de la tension",
+        "Écran digital clair et facile à lire",
+        "Compact et simple à utiliser partout"
+      ]
+    },
+    "price": 129,
+    "oldPrice": 199,
+    "category": "Tech",
+    "badge": "Promo",
+    "active": true,
+    "featured": true,
+    "availability": true
   },
   {
-    id: 'demo-4',
-    imageUrl: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'باور بانك 20000mAh', fr: 'Portable Charger 20000mAh' },
-    description: {
-      ar: 'بطارية خارجية قوية للشحن في الطريق، مناسبة للهاتف والاكسسوارات.',
-      fr: 'Batterie externe fiable pour garder vos appareils charges en deplacement.',
+    "id": "demo-3",
+    "imageUrl": "/products/demo-3-main.jpg",
+    "secondImageUrl": "/products/demo-3-usage.jpg",
+    "name": {
+      "ar": "جهاز مساج الرقبة والكتفين",
+      "fr": "Appareil de massage pour le cou et les épaules"
     },
-    benefits: {
-      ar: ['سعة كبيرة', 'شحن سريع', 'مخرجين USB'],
-      fr: ['Grande capacite', 'Charge rapide', 'Deux sorties USB'],
+    "description": {
+      "ar": "جهاز مساج عملي كيعاون على تخفيف التوتر وآلام الرقبة والكتفين بطريقة مريحة من المنزل. مزود بخاصية التدليك العميق والحرارة الخفيفة لإحساس أفضل بالراحة والاسترخاء.",
+      "fr": "Appareil de massage conçu pour soulager les tensions et douleurs du cou et des épaules à domicile. Massage profond avec chaleur douce pour une sensation de confort et de relaxation."
     },
-    category: 'Tech',
-    price: 199,
-    oldPrice: 259,
-    badge: 'Best Seller',
-    active: true,
-    featured: false,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "كيخفف التوتر وآلام الرقبة بسرعة",
+        "تدليك مريح مع حرارة خفيفة",
+        "سهل الاستعمال فالدار أو المكتب"
+      ],
+      "fr": [
+        "Soulage rapidement les tensions du cou",
+        "Massage relaxant avec chaleur douce",
+        "Simple à utiliser à la maison ou au bureau"
+      ]
+    },
+    "price": 219,
+    "oldPrice": 299,
+    "category": "Tech",
+    "badge": "Best Seller",
+    "active": true,
+    "featured": true,
+    "availability": true
   },
   {
-    id: 'demo-5',
-    imageUrl: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'جهاز إزالة الشعر IPL', fr: 'IPL Hair Removal Device' },
-    description: {
-      ar: 'جهاز IPL للاستعمال في البيت بروتين سهل ومريح للعناية الشخصية.',
-      fr: 'Appareil IPL pour une routine beauty plus confortable a domicile.',
+    "id": "demo-4",
+    "imageUrl": "/products/demo-4-main.jpg",
+    "secondImageUrl": "/products/demo-4-usage.jpg",
+    "name": {
+      "ar": "جهاز المساج الدوار للجسم",
+      "fr": "Appareil de massage roulant pour le corps"
     },
-    benefits: {
-      ar: ['استعمال منزلي', 'مستويات متعددة', 'سهل في اليد'],
-      fr: ['Utilisation maison', 'Plusieurs niveaux', 'Design ergonomique'],
+    "description": {
+      "ar": "جهاز مساج عملي بتقنية التدليك الدوار كيعاون على تخفيف التوتر والشد العضلي بطريقة مريحة وسهلة. تصميم مريح للاستعمال اليومي فالدار أو بعد الرياضة.",
+      "fr": "Appareil de massage roulant conçu pour détendre les muscles et réduire les tensions du corps. Pratique et confortable pour une utilisation quotidienne à la maison ou après le sport."
     },
-    category: 'Beauty',
-    price: 699,
-    oldPrice: 899,
-    badge: 'Promo',
-    active: true,
-    featured: true,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "كيخفف التوتر والتعب العضلي",
+        "تدليك مريح وعميق للجسم",
+        "خفيف وسهل الاستعمال فالدار"
+      ],
+      "fr": [
+        "Soulage les tensions musculaires",
+        "Massage profond et relaxant",
+        "Pratique et facile à utiliser à domicile"
+      ]
+    },
+    "price": 319,
+    "oldPrice": 399,
+    "category": "Tech",
+    "badge": "New",
+    "active": true,
+    "featured": true,
+    "availability": true
   },
   {
-    id: 'demo-6',
-    imageUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'ماكينة صغيرة للوجه', fr: 'Face Hair Trimmer' },
-    description: {
-      ar: 'ماكينة صغيرة للتصحيح السريع ولطيفة على البشرة.',
-      fr: 'Petit trimmer pratique pour les retouches rapides du visage.',
+    "id": "demo-5",
+    "imageUrl": "/products/demo-5-main.jpg",
+    "secondImageUrl": "",
+    "name": {
+      "ar": "جهاز مساج القدمين الكهربائي",
+      "fr": "Appareil électrique de massage des pieds"
     },
-    benefits: {
-      ar: ['صغيرة وخفيفة', 'لطيفة على البشرة', 'سهلة التنظيف'],
-      fr: ['Compact', 'Doux sur la peau', 'Facile a nettoyer'],
+    "description": {
+      "ar": "جهاز مساج للقدمين كيعاون على الاسترخاء وتخفيف التعب بعد يوم طويل. مزود بتدليك مريح مع حرارة خفيفة لتحسين الراحة والاستجمام فالدار.",
+      "fr": "Appareil de massage pour les pieds conçu pour détendre les muscles et réduire la fatigue après une longue journée. Massage relaxant avec chaleur douce pour plus de confort à la maison."
     },
-    category: 'Beauty',
-    price: 129,
-    oldPrice: '',
-    badge: 'New',
-    active: true,
-    featured: false,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "كيخفف تعب وآلام القدمين",
+        "تدليك مريح مع حرارة خفيفة",
+        "مثالي للاسترخاء فالدار بعد يوم طويل"
+      ],
+      "fr": [
+        "Soulage la fatigue des pieds",
+        "Massage relaxant avec chaleur douce",
+        "Idéal pour se détendre à la maison"
+      ]
+    },
+    "price": 349,
+    "oldPrice": 399,
+    "category": "Medical",
+    "badge": "Promo",
+    "active": true,
+    "featured": true,
+    "availability": true
   },
   {
-    id: 'demo-7',
-    imageUrl: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'فرشاة تصفيف الشعر 3 في 1', fr: 'Hair Styling Brush 3-en-1' },
-    description: {
-      ar: 'فرشاة ساخنة لتصفيف الشعر بسرعة وتعطي حجم طبيعي.',
-      fr: 'Brosse chauffante pour coiffer rapidement avec volume naturel.',
+    "id": "demo-6",
+    "imageUrl": "/products/demo-6-main.jpg",
+    "secondImageUrl": "",
+    "name": {
+      "ar": "ميزان ذكي لقياس الوزن وتحليل الجسم",
+      "fr": "Balance intelligente analyse corporelle"
     },
-    benefits: {
-      ar: ['تسخين سريع', 'حجم طبيعي', 'استعمال سهل'],
-      fr: ['Chauffe rapide', 'Volume naturel', 'Prise en main facile'],
+    "description": {
+      "ar": "ميزان ذكي رقمي كيعاونك تتابع الوزن ومؤشرات الجسم بسهولة عبر تطبيق الهاتف. تصميم عصري مع شاشة رقمية واضحة وقياسات دقيقة للاستعمال اليومي فالدار.",
+      "fr": "Balance intelligente digitale permettant de suivre le poids et plusieurs indicateurs corporels via une application mobile. Design moderne avec écran digital clair et mesures précises pour une utilisation quotidienne."
     },
-    category: 'Beauty',
-    price: 299,
-    oldPrice: 399,
-    badge: 'Best Seller',
-    active: true,
-    featured: true,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "قياس دقيق للوزن ومؤشرات الجسم",
+        "ربط سهل مع تطبيق الهاتف",
+        "شاشة رقمية واضحة وعصرية"
+      ],
+      "fr": [
+        "Mesure précise du poids et du corps",
+        "Connexion facile avec l’application mobile",
+        "Écran digital moderne et lisible"
+      ]
+    },
+    "price": 169,
+    "oldPrice": 219,
+    "category": "Medical",
+    "badge": "Best Seller",
+    "active": true,
+    "featured": false,
+    "availability": true
   },
   {
-    id: 'demo-8',
-    imageUrl: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'مزيل الجلد الخشن للقدمين', fr: 'Electric Callus Remover' },
-    description: {
-      ar: 'جهاز عناية للقدمين بكرات ناعمة وقابل للشحن.',
-      fr: 'Accessoire rechargeable pour garder les pieds plus lisses.',
+    "id": "demo-7",
+    "imageUrl": "/products/demo-7-main.jpg",
+    "secondImageUrl": "/products/demo-7-usage.jpg",
+    "name": {
+      "ar": "مسدس غسيل السيارات اللاسلكي",
+      "fr": "Pistolet de lavage voiture sans fil"
     },
-    benefits: {
-      ar: ['قابل للشحن', 'سرعتين', 'كرات قابلة للتبديل'],
-      fr: ['Rechargeable', 'Deux vitesses', 'Rouleaux remplacables'],
+    "description": {
+      "ar": "مسدس غسيل عملي وقوي كيعاونك تنظف السيارة، الحديقة والأسطح بسهولة باستعمال الماء المضغوط. تصميم لاسلكي سهل الحمل مع عدة ملحقات للاستعمال اليومي فالدار أو خارجها.",
+      "fr": "Pistolet de lavage sans fil puissant et pratique pour nettoyer la voiture, le jardin et différentes surfaces facilement grâce à la pression d’eau. Léger, portable et livré avec plusieurs accessoires utiles."
     },
-    category: 'Beauty',
-    price: 159,
-    oldPrice: 219,
-    badge: 'Promo',
-    active: true,
-    featured: false,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "تنظيف سريع وقوي بالماء المضغوط",
+        "لاسلكي وخفيف سهل الحمل والاستعمال",
+        "مناسب للسيارة، الحديقة وتنظيف مختلف الأسطح"
+      ],
+      "fr": [
+        "Nettoyage rapide et puissant à haute pression",
+        "Sans fil et facile à transporter",
+        "Idéal pour voiture, jardin et surfaces extérieures"
+      ]
+    },
+    "price": 349,
+    "oldPrice": 399,
+    "category": "Tech",
+    "badge": "Promo",
+    "active": true,
+    "featured": true,
+    "availability": true
   },
   {
-    id: 'demo-9',
-    imageUrl: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'ماساژ الرقبة Relax', fr: 'Neck Massager Relax' },
-    description: {
-      ar: 'جهاز مساج للرقبة والكتاف مع حرارة خفيفة للاسترخاء بعد النهار الطويل.',
-      fr: 'Masseur de nuque avec chaleur douce pour relacher la tension.',
+    "id": "demo-8",
+    "imageUrl": "/products/demo-8-main.jpg",
+    "secondImageUrl": "/products/demo-8-usage.jpg",
+    "name": {
+      "ar": "جهاز المساج الحراري والبارد المحمول",
+      "fr": "Mini pistolet de massage chaud et froid"
     },
-    benefits: {
-      ar: ['حرارة مريحة', 'أوضاع مساج', 'سهل الحمل'],
-      fr: ['Chaleur apaisante', 'Modes de massage', 'Format portable'],
+    "description": {
+      "ar": "جهاز مساج محمول بتقنية الحرارة والبرودة كيعاون على تخفيف التشنجات والتعب العضلي بطريقة مريحة وسريعة. تصميم صغير وخفيف مع رؤوس متعددة للتدليك اليومي فالدار أو بعد الرياضة.",
+      "fr": "Mini pistolet de massage portable avec fonction chaud et froid pour soulager les tensions musculaires et offrir une récupération plus confortable. Compact, léger et pratique pour une utilisation quotidienne."
     },
-    category: 'Medical & Wellness',
-    price: 379,
-    oldPrice: 499,
-    badge: 'Best Seller',
-    active: true,
-    featured: true,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "تدليك بالحرارة والبرودة لراحة أفضل",
+        "كيخفف التعب والتشنجات العضلية بسرعة",
+        "خفيف وصغير سهل الحمل والاستعمال"
+      ],
+      "fr": [
+        "Massage chaud et froid pour plus de confort",
+        "Aide à soulager rapidement les tensions musculaires",
+        "Compact et facile à transporter partout"
+      ]
+    },
+    "price": 159,
+    "oldPrice": 219,
+    "category": "Beauty",
+    "badge": "Promo",
+    "active": true,
+    "featured": false,
+    "availability": true
   },
   {
-    id: 'demo-10',
-    imageUrl: 'https://images.unsplash.com/photo-1571019613914-85f342c6a11e?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'Massage Gun Compact', fr: 'Massage Gun Compact' },
-    description: {
-      ar: 'جهاز مساج عضلي صغير مع رؤوس متعددة للراحة بعد الرياضة أو الخدمة.',
-      fr: 'Pistolet de massage compact avec plusieurs embouts.',
+    "id": "demo-9",
+    "imageUrl": "/products/demo-9-main.jpg",
+    "secondImageUrl": "/products/demo-9-usage.jpg",
+    "name": {
+      "ar": "جهاز نفخ العجلات المحمول",
+      "fr": "Compresseur d’air portable intelligent"
     },
-    benefits: {
-      ar: ['سرعات متعددة', 'رؤوس مختلفة', 'بطارية قابلة للشحن'],
-      fr: ['Plusieurs vitesses', 'Embouts inclus', 'Batterie rechargeable'],
+    "description": {
+      "ar": "جهاز محمول لنفخ العجلات بسرعة وسهولة مع شاشة رقمية لقياس الضغط بدقة. مناسب للسيارات، الدراجات النارية، الدراجات الهوائية وحتى الكرات الرياضية.",
+      "fr": "Compresseur d’air portable avec écran digital permettant de gonfler facilement les pneus avec précision. Idéal pour voiture, moto, vélo et accessoires sportifs."
     },
-    category: 'Medical & Wellness',
-    price: 449,
-    oldPrice: 599,
-    badge: 'Promo',
-    active: true,
-    featured: false,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "نفخ سريع ودقيق للعجلات",
+        "شاشة رقمية واضحة لقياس الضغط",
+        "خفيف وسهل الحمل فالسيارة"
+      ],
+      "fr": [
+        "Gonflage rapide et précis",
+        "Écran digital clair et moderne",
+        "Compact et pratique à transporter"
+      ]
+    },
+    "price": 499,
+    "oldPrice": 599,
+    "category": "Tech",
+    "badge": "Promo",
+    "active": true,
+    "featured": true,
+    "availability": true
   },
   {
-    id: 'demo-11',
-    imageUrl: 'https://images.unsplash.com/photo-1576243345690-4e4b79b63288?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'ميزان ذكي FitTrack', fr: 'Smart Scale FitTrack' },
-    description: {
-      ar: 'ميزان ذكي بقراءة واضحة لتتبع الوزن والروتين الصحي.',
-      fr: 'Balance moderne pour suivre votre evolution avec lecture claire.',
+    "id": "demo-10",
+    "imageUrl": "/products/demo-10-main.jpg",
+    "secondImageUrl": "",
+    "name": {
+      "ar": "جهاز المساج الحراري للجسم",
+      "fr": "Appareil de massage chauffant pour le corps"
     },
-    benefits: {
-      ar: ['تطبيق الهاتف', 'تتبع الوزن', 'تصميم رقيق'],
-      fr: ['Application mobile', 'Suivi poids', 'Design fin'],
+    "description": {
+      "ar": "جهاز مساج حراري عملي كيعاون على الاسترخاء وتخفيف التشنجات والتعب العضلي بطريقة مريحة. مزود بحرارة خفيفة وتدليك فعال للاستعمال اليومي فالدار.",
+      "fr": "Appareil de massage chauffant conçu pour détendre les muscles et réduire les tensions du corps. Massage efficace avec chaleur douce pour plus de confort et de relaxation à domicile."
     },
-    category: 'Medical & Wellness',
-    price: 249,
-    oldPrice: '',
-    badge: 'New',
-    active: true,
-    featured: false,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "كيخفف التشنجات والتعب العضلي",
+        "تدليك مريح مع حرارة خفيفة",
+        "سهل وخفيف للاستعمال اليومي"
+      ],
+      "fr": [
+        "Aide à soulager les tensions musculaires",
+        "Massage relaxant avec chaleur douce",
+        "Pratique et facile à utiliser au quotidien"
+      ]
+    },
+    "price": 449,
+    "oldPrice": 599,
+    "category": "Medical & Wellness",
+    "badge": "Out of stock",
+    "active": true,
+    "featured": false,
+    "availability": false
   },
   {
-    id: 'demo-12',
-    imageUrl: 'https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=900&q=80',
-    name: { ar: 'مصحح وضعية الظهر', fr: 'Posture Corrector Comfort' },
-    description: {
-      ar: 'حزام خفيف يساعد على دعم الظهر والكتفين خلال اليوم.',
-      fr: 'Correcteur leger pour aider a garder les epaules bien alignees.',
+    "id": "demo-11",
+    "imageUrl": "/products/demo-11-main.jpg",
+    "secondImageUrl": "",
+    "name": {
+      "ar": "جهاز المساج متعدد الرؤوس للجسم",
+      "fr": "Appareil de massage multifonction pour le corps"
     },
-    benefits: {
-      ar: ['قابل للتعديل', 'مريح تحت الملابس', 'دعم يومي'],
-      fr: ['Taille ajustable', 'Discret sous vetements', 'Support quotidien'],
+    "description": {
+      "ar": "جهاز مساج عملي مزود بعدة رؤوس دوارة لتخفيف التوتر والتعب العضلي بطريقة مريحة. تصميم محمول وسهل الاستعمال مع مستويات مختلفة للتدليك تناسب مختلف مناطق الجسم.",
+      "fr": "Appareil de massage multifonction équipé de plusieurs têtes rotatives pour détendre les muscles et soulager les tensions du corps. Léger, pratique et adapté à différentes zones musculaires."
     },
-    category: 'Medical & Wellness',
-    price: 169,
-    oldPrice: 229,
-    badge: 'Best Seller',
-    active: true,
-    featured: false,
-    availability: true,
+    "benefits": {
+      "ar": [
+        "كيخفف التوتر والتشنجات العضلية",
+        "عدة رؤوس لتدليك مختلف مناطق الجسم",
+        "خفيف وسهل الاستعمال فالدار"
+      ],
+      "fr": [
+        "Aide à soulager les tensions musculaires",
+        "Plusieurs têtes pour différentes zones du corps",
+        "Pratique et facile à utiliser à domicile"
+      ]
+    },
+    "price": 249,
+    "oldPrice": 319,
+    "category": "Medical & Wellness",
+    "badge": "Out of stock",
+    "active": true,
+    "featured": false,
+    "availability": false
   },
+  {
+    "id": "demo-12",
+    "imageUrl": "/products/demo-12-main.jpg",
+    "secondImageUrl": "/products/demo-12-usage.jpg",
+    "name": {
+      "ar": "مقص تقليم الأشجار الكهربائي",
+      "fr": "Sécateur électrique sans fil"
+    },
+    "description": {
+      "ar": "مقص كهربائي عملي لتقليم الأشجار والأغصان بسهولة وسرعة بدون مجهود كبير. مزود ببطارية قابلة للشحن وتصميم مريح للاستعمال فالحديقة أو المزرعة.",
+      "fr": "Sécateur électrique sans fil conçu pour couper les branches et tailler les arbres facilement avec moins d’effort. Batterie rechargeable et prise en main confortable pour le jardinage quotidien."
+    },
+    "benefits": {
+      "ar": [
+        "تقليم سريع وسهل للأغصان",
+        "بطارية قابلة للشحن لاستعمال عملي",
+        "تصميم مريح وخفيف فالاستعمال"
+      ],
+      "fr": [
+        "Coupe rapide et efficace des branches",
+        "Batterie rechargeable pratique",
+        "Léger et confortable à utiliser"
+      ]
+    },
+    "price": 399,
+    "oldPrice": 499,
+    "category": "Tech",
+    "badge": "Out of stock",
+    "active": true,
+    "featured": false,
+    "availability": false
+  }
 ]
