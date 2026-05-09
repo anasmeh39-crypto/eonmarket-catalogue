@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CataloguePage from './pages/CataloguePage.jsx'
 import AdminPage from './pages/AdminPage.jsx'
-import { loadHeroSlides, loadProducts, saveHeroSlides, saveProducts } from './utils/storage.js'
+import { clearSavedProducts, loadHeroSlides, loadProducts, saveHeroSlides, saveProducts } from './utils/storage.js'
 
 export default function App() {
   const [language, setLanguage] = useState('ar')
@@ -21,6 +21,14 @@ export default function App() {
     setSaveError('')
     setProducts(nextProducts)
     return true
+  }
+
+  const resetProductsToDefaults = () => {
+    clearSavedProducts()
+    const defaultProducts = loadProducts()
+    setProducts(defaultProducts)
+    setSaveError('')
+    return defaultProducts
   }
 
   const handleHeroSlidesChange = (nextSlides) => {
@@ -48,6 +56,7 @@ export default function App() {
             <AdminPage
               products={products}
               onProductsChange={handleProductsChange}
+              onResetProducts={resetProductsToDefaults}
               saveError={saveError}
               heroSlides={heroSlides}
               onHeroSlidesChange={handleHeroSlidesChange}

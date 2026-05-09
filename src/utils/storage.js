@@ -28,6 +28,10 @@ export function saveProducts(products) {
   }
 }
 
+export function clearSavedProducts() {
+  localStorage.removeItem(PRODUCTS_KEY)
+}
+
 export function loadHeroSlides() {
   try {
     const saved = localStorage.getItem(HERO_SLIDES_KEY)

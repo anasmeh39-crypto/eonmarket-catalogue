@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Check, ImagePlus, Lock, LogOut, Pencil, Plus, Save, Search, Trash2, X } from 'lucide-react'
+import { ArrowLeft, Check, Download, ImagePlus, Lock, LogOut, Pencil, Plus, RotateCcw, Save, Search, Trash2, Upload, X } from 'lucide-react'
 
 const OWNER_PASSCODE = 'EON-2026'
 const OWNER_SESSION_KEY = 'eonmarket-admin-owner'
@@ -98,6 +98,7 @@ function compressImageFile(file, maxSize = 1000, quality = 0.78) {
 export default function AdminPage({
   products,
   onProductsChange,
+  onResetProducts = () => [],
   saveError = '',
   heroSlides = ['', ''],
   onHeroSlidesChange = () => false,
@@ -111,6 +112,8 @@ export default function AdminPage({
   const [query, setQuery] = useState('')
   const [formMessage, setFormMessage] = useState('')
   const [heroMessage, setHeroMessage] = useState('')
+  const [catalogueJson, setCatalogueJson] = useState('')
+  const [dataMessage, setDataMessage] = useState('')
 
   const handleOwnerLogin = (event) => {
     event.preventDefault()
@@ -232,6 +235,32 @@ export default function AdminPage({
 
   const toggleProduct = (id, field) => {
     onProductsChange(products.map((product) => (product.id === id ? { ...product, [field]: !product[field] } : product)))
+  }
+
+  const exportProducts = () => {
+    setCatalogueJson(JSON.stringify(products, null, 2))
+    setDataMessage('Catalogue exporte. Gardez ce JSON pour le deploy ou envoyez-le a Codex pour mettre a jour data/products.js.')
+  }
+
+  const importProducts = () => {
+    try {
+      const parsed = JSON.parse(catalogueJson)
+      if (!Array.isArray(parsed)) {
+        setDataMessage('Import refuse: le JSON doit etre une liste de produits.')
+        return
+      }
+
+      const saved = onProductsChange(parsed)
+      setDataMessage(saved === false ? 'Import non sauvegarde.' : 'Catalogue importe et sauvegarde dans ce navigateur.')
+    } catch {
+      setDataMessage('JSON invalide. Verifiez le contenu avant importer.')
+    }
+  }
+
+  const resetLocalProducts = () => {
+    const defaults = onResetProducts()
+    setCatalogueJson(JSON.stringify(defaults, null, 2))
+    setDataMessage('Cache local efface. La preview recharge les produits par defaut du code.')
   }
 
   if (!isOwner) {
@@ -402,6 +431,52 @@ export default function AdminPage({
         </section>
 
         <section className="space-y-4">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="flex flex-col gap-1">
+              <h2 className="text-xl font-black text-slate-950">Synchronisation catalogue</h2>
+              <p className="text-sm font-semibold leading-6 text-slate-500">
+                Les changements admin sont dans localStorage. Exportez le JSON pour le deploy, ou effacez le cache si la preview montre un ancien catalogue.
+              </p>
+            </div>
+
+            {dataMessage && <div className="mt-4 rounded-2xl bg-blue-50 px-4 py-3 text-sm font-black text-blue-700">{dataMessage}</div>}
+
+            <div className="mt-4 grid gap-2 sm:grid-cols-3">
+              <button
+                type="button"
+                onClick={exportProducts}
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-blue-600 px-4 text-sm font-black text-white hover:bg-blue-700"
+              >
+                <Download size={16} />
+                Exporter JSON
+              </button>
+              <button
+                type="button"
+                onClick={importProducts}
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-4 text-sm font-black text-slate-700 hover:bg-slate-50"
+              >
+                <Upload size={16} />
+                Importer JSON
+              </button>
+              <button
+                type="button"
+                onClick={resetLocalProducts}
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-amber-50 px-4 text-sm font-black text-amber-800 hover:bg-amber-100"
+              >
+                <RotateCcw size={16} />
+                Recharger defaults
+              </button>
+            </div>
+
+            <textarea
+              value={catalogueJson}
+              onChange={(event) => setCatalogueJson(event.target.value)}
+              rows="7"
+              className="mt-4 w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3 font-mono text-xs outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+              placeholder="Exporter ou coller ici le JSON produits..."
+            />
+          </div>
+
           <div className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
             <div className="flex flex-col gap-1">
               <h2 className="text-xl font-black text-slate-950">Images hero accueil</h2>
