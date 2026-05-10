@@ -80,7 +80,7 @@ export default function CataloguePage({ language, onLanguageChange, products, he
 
       <main>
         <section className="bg-white">
-          <div className="mx-auto max-w-6xl space-y-4 px-3 pb-4 pt-3 sm:space-y-6 sm:px-6 sm:pb-8 sm:pt-8">
+          <div className="mx-auto max-w-6xl space-y-4 px-2.5 pb-4 pt-2.5 sm:space-y-6 sm:px-6 sm:pb-8 sm:pt-8">
             <HeroSlider images={heroSlides} />
 
             <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-amber-50 to-blue-50 px-3 py-2 text-xs font-black text-blue-800 shadow-sm ring-1 ring-blue-100 sm:text-sm">

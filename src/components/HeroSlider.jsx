@@ -23,7 +23,7 @@ export default function HeroSlider({ images = [] }) {
 
   return (
     <section className="relative overflow-hidden rounded-[1.75rem] bg-slate-100 shadow-lg shadow-slate-900/10 ring-1 ring-slate-200 sm:rounded-[2rem]">
-      <div className="relative aspect-[16/9] min-h-44 sm:min-h-72">
+      <div className="relative h-[58vh] min-h-[390px] max-h-[620px] sm:h-[430px] sm:min-h-0 sm:max-h-none lg:h-[500px]">
         {slides.map((slide, index) => {
           const isActive = index === activeSlide
           return (
@@ -38,7 +38,7 @@ export default function HeroSlider({ images = [] }) {
                 <img
                   src={slide.src}
                   alt=""
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover object-center"
                   onError={() => setFailedImages((current) => ({ ...current, [index]: true }))}
                 />
               )}

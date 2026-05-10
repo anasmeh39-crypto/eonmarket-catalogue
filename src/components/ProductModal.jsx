@@ -40,7 +40,7 @@ export default function ProductModal({ product, onClose, language = 'ar' }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-end bg-slate-950/50 p-0 backdrop-blur-sm sm:items-center sm:p-6" role="dialog" aria-modal="true" dir={language === 'ar' ? 'rtl' : 'ltr'}>
-      <div className="mx-auto max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-t-[2rem] bg-white shadow-2xl sm:rounded-[2rem]">
+      <div className="mx-auto max-h-[94vh] w-full max-w-3xl overflow-y-auto rounded-t-[2rem] bg-white shadow-2xl sm:rounded-[2rem]">
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-100 bg-white/95 px-4 py-3 backdrop-blur sm:px-6">
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-blue-600">
@@ -58,11 +58,11 @@ export default function ProductModal({ product, onClose, language = 'ar' }) {
           </button>
         </div>
 
-        <div className="grid gap-5 p-4 sm:grid-cols-[0.9fr_1.1fr] sm:p-6">
+        <div className="grid gap-4 p-3 sm:grid-cols-[0.95fr_1.05fr] sm:gap-5 sm:p-6">
           <div className="space-y-3">
-            <div className="grid aspect-square place-items-center overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-slate-100 to-blue-100">
+            <div className="grid h-[56vh] min-h-[380px] max-h-[560px] place-items-center overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-slate-100 to-blue-100 sm:aspect-square sm:h-auto sm:min-h-0 sm:max-h-none">
               {activeImage?.url ? (
-                <img src={activeImage.url} alt={`${name} - ${activeImage.label}`} className="h-full w-full object-cover" />
+                <img src={activeImage.url} alt={`${name} - ${activeImage.label}`} className="h-full w-full object-contain p-1.5 sm:p-3" />
               ) : (
                 <div className="grid size-40 place-items-center rounded-[2.25rem] bg-white/75 text-center text-base font-black text-slate-500 shadow-inner">
                   Image produit
@@ -90,7 +90,7 @@ export default function ProductModal({ product, onClose, language = 'ar' }) {
             )}
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-4 sm:space-y-5">
             <div className="flex items-end gap-2">
               <span className="text-3xl font-black text-slate-950">{product.price} MAD</span>
               {product.oldPrice && <span className="pb-1 text-base font-bold text-slate-400 line-through">{product.oldPrice} MAD</span>}

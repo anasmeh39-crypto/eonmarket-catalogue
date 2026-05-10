@@ -22,18 +22,23 @@ export default function ProductCard({ product, onDetails, language = 'ar' }) {
   const showNextImage = () => setActiveImageIndex((current) => (current === productImages.length - 1 ? 0 : current + 1))
 
   return (
-    <article className="grid grid-cols-[112px_1fr] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg sm:block sm:rounded-3xl">
-      <div className="relative aspect-square bg-gradient-to-br from-slate-100 to-blue-100 sm:aspect-[4/3]">
+    <article className="overflow-hidden rounded-[1.65rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg sm:rounded-3xl">
+      <div className="relative aspect-square min-h-[285px] bg-gradient-to-br from-slate-100 to-blue-100 sm:min-h-0">
         <div className={`absolute left-2 top-2 rounded-full bg-white/90 px-2 py-1 text-[10px] font-black shadow-sm sm:left-3 sm:top-3 sm:px-3 sm:text-xs ${
           isOutOfStock ? 'text-rose-700' : 'text-blue-700'
         }`}>
           {badgeLabels[language][product.badge] || product.badge}
         </div>
         {activeImage ? (
-          <img src={activeImage} alt={`${name} - ${imageLabels[activeImageIndex] || ''}`} className="h-full w-full object-cover" loading="lazy" />
+          <img
+            src={activeImage}
+            alt={`${name} - ${imageLabels[activeImageIndex] || ''}`}
+            className="h-full w-full object-contain p-1.5 sm:p-2.5"
+            loading="lazy"
+          />
         ) : (
-          <div className="flex h-full items-center justify-center p-6">
-            <div className="grid size-28 place-items-center rounded-[2rem] bg-white/75 text-center text-sm font-black text-slate-500 shadow-inner">
+          <div className="flex h-full items-center justify-center p-4">
+            <div className="grid size-32 place-items-center rounded-[2rem] bg-white/75 text-center text-sm font-black text-slate-500 shadow-inner">
               Image
             </div>
           </div>
@@ -83,13 +88,13 @@ export default function ProductCard({ product, onDetails, language = 'ar' }) {
         )}
       </div>
 
-      <div className="space-y-2 p-3 sm:space-y-3 sm:p-4">
+      <div className="space-y-3 p-3.5 sm:p-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-wide text-blue-600">
             {categoryLabels[language][product.category] || product.category}
           </p>
-          <h3 className="mt-0.5 text-sm font-black leading-5 text-slate-950 sm:mt-1 sm:min-h-12 sm:text-base sm:leading-6">{name}</h3>
-          <p className="line-clamp-2 mt-0.5 text-xs font-semibold leading-4 text-slate-500 sm:mt-1 sm:min-h-10 sm:text-sm sm:font-normal sm:leading-5">{benefit}</p>
+          <h3 className="mt-1 text-base font-black leading-6 text-slate-950 sm:min-h-12 sm:leading-6">{name}</h3>
+          <p className="line-clamp-2 mt-1 text-sm font-semibold leading-5 text-slate-500 sm:min-h-10 sm:font-normal">{benefit}</p>
         </div>
 
         <div className="flex items-end gap-2">
@@ -120,7 +125,7 @@ export default function ProductCard({ product, onDetails, language = 'ar' }) {
           <button
             type="button"
             onClick={() => onDetails(product)}
-            className="h-9 w-full rounded-full border border-slate-200 bg-white px-3 text-xs font-black text-slate-700 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 sm:h-10 sm:text-sm"
+            className="h-10 w-full rounded-full border border-blue-200 bg-gradient-to-r from-blue-600 to-violet-600 px-3 text-sm font-black text-white shadow-md shadow-blue-900/15 transition hover:from-blue-700 hover:to-violet-700 hover:shadow-lg sm:text-sm"
           >
             {detailsLabel}
           </button>
