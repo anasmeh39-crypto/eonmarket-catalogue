@@ -77,10 +77,10 @@ export default function ProductModal({ product, onClose, language = 'ar' }) {
                     key={image.label}
                     type="button"
                     onClick={() => setActiveImageIndex(index)}
-                    className={`h-10 rounded-full text-sm font-black transition ${
+                    className={`h-10 rounded-full text-sm font-black shadow-sm transition hover:shadow-md ${
                       activeImageIndex === index
-                        ? 'bg-blue-600 text-white shadow-sm'
-                        : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+                        ? 'border border-blue-200 bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-blue-900/15'
+                        : 'border border-blue-100 bg-gradient-to-r from-blue-50 to-violet-50 text-blue-800 hover:from-blue-100 hover:to-violet-100'
                     }`}
                   >
                     {image.label}

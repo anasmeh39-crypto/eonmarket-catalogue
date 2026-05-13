@@ -20,10 +20,24 @@ export default function ProductCard({ product, onDetails, language = 'ar' }) {
   const hasSlider = productImages.length > 1
   const showPreviousImage = () => setActiveImageIndex((current) => (current === 0 ? productImages.length - 1 : current - 1))
   const showNextImage = () => setActiveImageIndex((current) => (current === productImages.length - 1 ? 0 : current + 1))
+  const openDetailsFromImage = () => onDetails(product)
+  const handleImageKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      openDetailsFromImage()
+    }
+  }
 
   return (
     <article className="overflow-hidden rounded-[1.65rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg sm:rounded-3xl">
-      <div className="relative aspect-square min-h-[285px] bg-gradient-to-br from-slate-100 to-blue-100 sm:min-h-0">
+      <div
+        className="relative aspect-square min-h-[285px] cursor-pointer bg-gradient-to-br from-slate-100 to-blue-100 outline-none transition focus-visible:ring-4 focus-visible:ring-blue-200 sm:min-h-0"
+        onClick={openDetailsFromImage}
+        onKeyDown={handleImageKeyDown}
+        role="button"
+        tabIndex={0}
+        aria-label={detailsLabel}
+      >
         <div className={`absolute left-2 top-2 rounded-full bg-white/90 px-2 py-1 text-[10px] font-black shadow-sm sm:left-3 sm:top-3 sm:px-3 sm:text-xs ${
           isOutOfStock ? 'text-rose-700' : 'text-blue-700'
         }`}>
@@ -51,7 +65,10 @@ export default function ProductCard({ product, onDetails, language = 'ar' }) {
                 <button
                   key={image}
                   type="button"
-                  onClick={() => setActiveImageIndex(index)}
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    setActiveImageIndex(index)
+                  }}
                   className={`size-1.5 rounded-full transition sm:size-2 ${
                     index === activeImageIndex ? 'bg-blue-600' : 'bg-slate-300'
                   }`}
@@ -62,7 +79,10 @@ export default function ProductCard({ product, onDetails, language = 'ar' }) {
 
             <button
               type="button"
-              onClick={showPreviousImage}
+              onClick={(event) => {
+                event.stopPropagation()
+                showPreviousImage()
+              }}
               className="absolute left-1 top-1/2 hidden size-7 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-slate-700 shadow-sm transition hover:bg-white sm:grid"
               aria-label={language === 'ar' ? 'الصورة السابقة' : 'Image precedente'}
             >
@@ -70,7 +90,10 @@ export default function ProductCard({ product, onDetails, language = 'ar' }) {
             </button>
             <button
               type="button"
-              onClick={showNextImage}
+              onClick={(event) => {
+                event.stopPropagation()
+                showNextImage()
+              }}
               className="absolute right-1 top-1/2 hidden size-7 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-slate-700 shadow-sm transition hover:bg-white sm:grid"
               aria-label={language === 'ar' ? 'الصورة التالية' : 'Image suivante'}
             >
@@ -79,7 +102,10 @@ export default function ProductCard({ product, onDetails, language = 'ar' }) {
 
             <button
               type="button"
-              onClick={showNextImage}
+              onClick={(event) => {
+                event.stopPropagation()
+                showNextImage()
+              }}
               className="absolute bottom-1 right-1 rounded-full bg-white/90 px-2 py-1 text-[10px] font-black text-blue-700 shadow-sm sm:hidden"
             >
               {activeImageIndex + 1}/2
